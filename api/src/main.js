@@ -9,7 +9,7 @@ export default defineConfig({
   ],
 })
 
-async function getData(poke) {
+/* async function getData(poke) {
   try {
     //go get data
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${poke}`);
@@ -24,4 +24,4 @@ async function getData(poke) {
     console.log(error);
   }
 }
-getData('gengar');
+getData('gengar'); */
