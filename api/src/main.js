@@ -9,10 +9,10 @@ export default defineConfig({
   ],
 })
 
-/* async function getData(poke) {
+async function getData(game, appid) {
   try {
     //go get data
-    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${poke}`);
+    const response = await fetch(`https://steamcommunity.com/market/pricehistory?appid=${appid}&market_hash_name=${game}`);
     if (response.status != 200) {
       throw new Error('Failed to fetch data');
     } else {
@@ -24,4 +24,4 @@ export default defineConfig({
     console.log(error);
   }
 }
-getData('gengar'); */
+console.log(getData('AWP | Dragon Lore (Factory New)', 730));
