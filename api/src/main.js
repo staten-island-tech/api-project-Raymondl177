@@ -1,18 +1,9 @@
 import './style.css'
 
-import { defineConfig } from 'vite'
-import tailwindcss from '@tailwindcss/vite'
-
-export default defineConfig({
-  plugins: [
-    tailwindcss(),
-  ],
-})
-
-async function getData(agent) {
+async function getData(cityName, APIKey) {
   try {
     //go get data
-    const response = await fetch(`https://valorant-api.com/v1/agents/${agent}`);
+    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${APIKey}`);
     if (response.status != 200) {
       throw new Error('Failed to fetch data');
     } else {
@@ -24,4 +15,4 @@ async function getData(agent) {
     console.log(error);
   }
 }
-console.log(getData(Reyna));
+console.log(getData('London','173d97e5b6b61d6379067eecc1cb5036'));
