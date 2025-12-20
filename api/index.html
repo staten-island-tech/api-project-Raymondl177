@@ -4,10 +4,18 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>api</title>
+    <title>Weather</title>
   </head>
   <body>
-    <h2 id="api-response"></h2>
+    <section class="container">
+      <h1 id="appTitle">Weather App</h1>
+      <div id="searchContainer">
+        <input type="text" id="cityInput" placeholder="Enter city" />
+        <button id="searchButton">Search</button>
+      </div>
+      <div id="resultsContainer" class="weather-info">
+      </div>
+    </section>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
