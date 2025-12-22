@@ -9,8 +9,8 @@ async function getData(cityName) {
       `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${APIKey}&units=imperial`
     );
     if (response.status != 200) {
-      throw new Error("Failed to fetch data");
-    }
+      throw new Error(response);
+    } else {
     const data = await response.json();
     const container = document.getElementById("resultsContainer");
     container.insertAdjacentHTML(
@@ -32,8 +32,57 @@ async function getData(cityName) {
       </div>
     `
     );
+  }
   } catch (error) {
     console.log(error);
   }
 }
+getData("New York");
+getData("Staten Island");
+getData("California");
 getData("London");
+getData("Italy");
+getData("France");
+getData("quebec");
+getData("Germany");
+getData("Spain");
+getData("Portugal");
+getData("Greece");
+getData("Japan");
+getData("China");
+getData("Russia");
+getData("India");
+getData("Brazil");
+getData("Argentina");
+getData("Chile");
+getData("Egypt");
+getData("Nigeria");
+getData("Kenya");
+getData("Australia");
+getData("New Zealand");
+getData("Indonesia");
+getData("Thailand");
+getData("Vietnam");
+getData("Philippines");
+getData("Turkey");
+getData("Saudi Arabia");
+getData("United Arab Emirates");
+
+function searchCity() {
+const cityInput = document.getElementById("cityInput").value;
+const weatherContainer = document.getElementById("resultsContainer");
+function doSearch() {
+    const searchTerm = cityInput.value.toLowerCase();
+    weatherContainer.innerHTML = "";
+    const filteredWeather = weatherData.filter((weather) =>
+      weather.name.toLowerCase().includes(searchTerm)
+    );
+    if (filteredWeather.length === 0) {
+      weatherContainer.innerHTML = "<p class='no-results'>No weather found.</p>";
+      return;
+    }
+    filteredWeather.forEach((weather) => inject(weather));
+}
+searchInput.addEventListener("input", doSearch);
+}
+searchCity();
