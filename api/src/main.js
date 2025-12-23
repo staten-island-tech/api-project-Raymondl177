@@ -69,20 +69,20 @@ getData("Saudi Arabia");
 getData("United Arab Emirates");
 
 function searchCity() {
-const cityInput = document.getElementById("cityInput").value;
-const weatherContainer = document.getElementById("resultsContainer");
+  const cityInput = document.getElementById("cityInput");
+  const weatherContainer = document.getElementById("resultsContainer");
 function doSearch() {
-    const searchTerm = cityInput.value.toLowerCase();
-    weatherContainer.innerHTML = "";
-    const filteredWeather = weatherData.filter((weather) =>
-      weather.name.toLowerCase().includes(searchTerm)
-    );
-    if (filteredWeather.length === 0) {
-      weatherContainer.innerHTML = "<p class='no-results'>No weather found.</p>";
-      return;
-    }
-    filteredWeather.forEach((weather) => inject(weather));
+  const searchTerm = cityInput.value.toLowerCase();
+  weatherContainer.innerHTML = "";
+  const filteredWeather = getData.filter((weather) =>
+    weather.name.toLowerCase().includes(searchTerm)
+  );
+  if (filteredWeather.length === 0) {
+    weatherContainer.innerHTML = "<p class='no-results'>No weather found.</p>";
+    return;
+  }
+  filteredWeather.forEach((weather) => inject(weather));
 }
-searchInput.addEventListener("input", doSearch);
+cityInput.addEventListener("input", doSearch);
 }
 searchCity();
