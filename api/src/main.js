@@ -1,6 +1,6 @@
 import "./style.css";
 
-const weathers = [
+const cities = [
   "New York",
   "California",
   "London",
@@ -40,7 +40,7 @@ async function getData(cityName) {
     container.insertAdjacentHTML(
       "beforeend",
       `
-         <div class="result-card">
+         <div class="card">
            <p class="city-name"><strong>City:</strong> ${data.name}</p>
         <p class="temperature"><strong>Temp:</strong> ${Math.round(
           data.main.temp
@@ -90,14 +90,14 @@ function searchCity() {
   function doSearch() {
   const searchTerm = cityInput.value.toLowerCase();
   weatherContainer.innerHTML = "";
-  const filteredWeather = weathers.filter((weather) =>
-    weather.toLowerCase().includes(searchTerm)
+  const filteredCities = cities.filter((city) =>
+    city.toLowerCase().includes(searchTerm)
   );
-  if (filteredWeather.length === 0) {
-    weatherContainer.innerHTML = "<p class='no-results'>No weather found.</p>";
+  if (filteredCities.length === 0) {
+    weatherContainer.innerHTML = "<p class='no-results'>No city found.</p>";
     return;
   }
-  filteredWeather.forEach((weather) => getData(weather));
+  filteredCities.forEach((city) => getData(city));
 }
 cityInput.addEventListener("input", doSearch);
 }
