@@ -35,13 +35,13 @@ async function getData(cityName) {
     if (response.status != 200) {
       throw new Error(response);
     } else {
-    const data = await response.json();
-    const container = document.getElementById("resultsContainer");
-    container.insertAdjacentHTML(
-      "beforeend",
-      `
+      const data = await response.json();
+      const container = document.getElementById("resultsContainer");
+      container.insertAdjacentHTML(
+        "beforeend",
+        `
          <div class="card">
-           <p class="city-name"><strong>City:</strong> ${data.name}</p>
+          <p class="city-name"><strong>City:</strong> ${data.name}</p>
         <p class="temperature"><strong>Temp:</strong> ${Math.round(
           data.main.temp
         )}°F</p>
@@ -52,11 +52,13 @@ async function getData(cityName) {
           data.main.humidity
         }%</p>
         <p class="wind"><strong>Wind:</strong> ${data.wind.speed} mph</p>
-        <p class="condition"><strong>Conditions:</strong> ${data.weather[0].description}</p>
+        <p class="condition"><strong>Conditions:</strong> ${
+          data.weather[0].description
+        }</p>
       </div>
     `
-    );
-  }
+      );
+    }
   } catch (error) {
     console.log(error);
   }
@@ -88,17 +90,17 @@ function searchCity() {
   const cityInput = document.getElementById("cityInput");
   const weatherContainer = document.getElementById("resultsContainer");
   function doSearch() {
-  const searchTerm = cityInput.value.toLowerCase();
-  weatherContainer.innerHTML = "";
-  const filteredCities = cities.filter((city) =>
-    city.toLowerCase().includes(searchTerm)
-  );
-  if (filteredCities.length === 0) {
-    weatherContainer.innerHTML = "<p class='no-results'>No city found.</p>";
-    return;
+    const searchTerm = cityInput.value.toLowerCase();
+    weatherContainer.innerHTML = "";
+    const filteredCities = cities.filter((city) =>
+      city.toLowerCase().includes(searchTerm)
+    );
+    if (filteredCities.length === 0) {
+      weatherContainer.innerHTML = "<p class='no-results'>No city found.</p>";
+      return;
+    }
+    filteredCities.forEach((city) => getData(city));
   }
-  filteredCities.forEach((city) => getData(city));
-}
-cityInput.addEventListener("input", doSearch);
+  cityInput.addEventListener("input", doSearch);
 }
 searchCity();
