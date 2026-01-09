@@ -8,11 +8,14 @@
   </head>
   <body>
     <section class="container">
-      <h1 class="text-4xl font-extrabold text-center text-emerald-600 my-6">Weather App</h1>
+      <h1 class="block text-4xl font-extrabold text-left text-cyan-400 mt-7 ml-10">Weather App</h1>
       <div class="search-container">
-        <input class="search" type="text" id="cityInput" placeholder="Enter city" />
+        <input class="border border-cyan-400 rounded-md p-2 ml-10 w-100 flex items-center" type="text" id="cityInput" placeholder="Enter city" />
       </div>
-      <div id="resultsContainer" class="weather-info">
+      <div class="hidden mt-5">
+        <p>No city found.</p>
+      </div>
+      <div id="resultsContainer" class="flex flex-wrap gap-10 text-2xl w-screen mt-5">
       </div>
     </section>
     <script type="module" src="/src/main.js"></script>

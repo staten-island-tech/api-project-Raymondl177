@@ -101,9 +101,38 @@ async function searchCity() {
   } catch (error) {
     console.log(error);
   }
+  if (cityInput.value === "" && container.innerHTML === "") {
+    const noResults = document.querySelector(".hidden");
+    noResults.style.display = "block";
+    getData("New York");
+    getData("California");
+    getData("London");
+    getData("Italy");
+    getData("France");
+      getData("quebec");
+      getData("Germany");
+      getData("Tokyo");
+      getData("Sydney");
+      getData("Beijing");
+      getData("Moscow");
+      getData("Berlin");
+      getData("Madrid");
+      getData("Rome");
+      getData("Dubai");
+      getData("Singapore");
+      getData("Hong Kong");
+      getData("Bangkok");
+      getData("Istanbul");
+      getData("Cairo");
+      getData("Mumbai");
+      getData("Seoul");
+    noResults.style.display = "none";
+    }
     if (container.innerHTML === "") {
-      container.innerHTML = "<p class='no-results'>No city found.</p>";
-      return;
+      const noResults = document.querySelector(".hidden");
+      noResults.style.display = "block";
+    } else {
+      noResults.style.display = "none";
     }
   }
   cityInput.addEventListener("input", doSearch);
