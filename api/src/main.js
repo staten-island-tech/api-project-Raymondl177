@@ -15,23 +15,23 @@ async function getData(cityName) {
       container.insertAdjacentHTML(
         "beforeend",
         `
-         <div class="card">
-          <p class="city-name"><strong>City:</strong> ${data.name}</p>
-        <p class="temperature"><strong>Temp:</strong> ${Math.round(
-          data.main.temp
-        )}°F</p>
-        <p class="feels-like"><strong>Feels Like:</strong> ${Math.round(
-          data.main.feels_like
-        )}°F</p>
-        <p class="humidity"><strong>Humidity:</strong> ${
-          data.main.humidity
-        }%</p>
-        <p class="wind"><strong>Wind:</strong> ${data.wind.speed} mph</p>
-        <p class="condition"><strong>Conditions:</strong> ${
-          data.weather[0].description
-        }</p>
-      </div>
-    `
+<div class="bg-slate-800 border border-slate-700 rounded-xl p-6 shadow-lg hover:scale-[1.02] transition">
+  <p class="text-xl font-semibold text-cyan-400 mb-2">
+    ${data.name}
+  </p>
+
+  <p class="text-3xl font-bold mb-4">
+    ${Math.round(data.main.temp)}°F
+  </p>
+
+  <div class="space-y-1 text-slate-300">
+    <p>Feels like: ${Math.round(data.main.feels_like)}°F</p>
+    <p>Humidity: ${data.main.humidity}%</p>
+    <p>Wind: ${data.wind.speed} mph</p>
+    <p class="capitalize">${data.weather[0].description}</p>
+  </div>
+</div>
+`
       );
     }
   } catch (error) {
@@ -64,51 +64,20 @@ getData("Seoul");
 async function searchCity() {
   const cityInput = document.getElementById("cityInput");
   const container = document.getElementById("resultsContainer");
+  const noResults = document.querySelector(".hidden");
+
   async function doSearch() {
-    const searchTerm = cityInput.value.toLowerCase();
-    container.innerHTML = "";
-    try {
-    //go get data
-    const response = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=${searchTerm}&appid=${APIKey}&units=imperial`
-    );
-    if (response.status != 200) {
-      throw new Error(response);
-    } else {
-      const data = await response.json();
-      container.insertAdjacentHTML(
-        "beforeend",
-        `
-         <div class="card">
-          <p class="city-name"><strong>City:</strong> ${data.name}</p>
-        <p class="temperature"><strong>Temp:</strong> ${Math.round(
-          data.main.temp
-        )}°F</p>
-        <p class="feels-like"><strong>Feels Like:</strong> ${Math.round(
-          data.main.feels_like
-        )}°F</p>
-        <p class="humidity"><strong>Humidity:</strong> ${
-          data.main.humidity
-        }%</p>
-        <p class="wind"><strong>Wind:</strong> ${data.wind.speed} mph</p>
-        <p class="condition"><strong>Conditions:</strong> ${
-          data.weather[0].description
-        }</p>
-      </div>
-    `
-      );
-    }
-  } catch (error) {
-    console.log(error);
-  }
-  if (cityInput.value === "" && container.innerHTML === "") {
-    const noResults = document.querySelector(".hidden");
-    noResults.style.display = "block";
-    getData("New York");
-    getData("California");
-    getData("London");
-    getData("Italy");
-    getData("France");
+    const value = cityInput.value.trim().toLowerCase();
+
+    if (value === "") {
+      container.innerHTML = "";
+      noResults.style.display = "none";
+
+      getData("New York");
+      getData("California");
+      getData("London");
+      getData("Italy");
+      getData("France");
       getData("quebec");
       getData("Germany");
       getData("Tokyo");
@@ -126,15 +95,51 @@ async function searchCity() {
       getData("Cairo");
       getData("Mumbai");
       getData("Seoul");
-    noResults.style.display = "none";
+      return;
     }
-    if (container.innerHTML === "") {
-      const noResults = document.querySelector(".hidden");
-      noResults.style.display = "block";
-    } else {
+
+    container.innerHTML = "";
+
+    try {
+      const response = await fetch(
+        `https://api.openweathermap.org/data/2.5/weather?q=${value}&appid=${APIKey}&units=imperial`
+      );
+
+      if (response.status !== 200) {
+        noResults.style.display = "block";
+        return;
+      }
+
+      const data = await response.json();
       noResults.style.display = "none";
+
+      container.insertAdjacentHTML(
+        "beforeend",
+        `
+<div class="bg-slate-800 border border-slate-700 rounded-xl p-6 shadow-lg hover:scale-[1.02] transition">
+  <p class="text-xl font-semibold text-cyan-400 mb-2">
+    ${data.name}
+  </p>
+
+  <p class="text-3xl font-bold mb-4">
+    ${Math.round(data.main.temp)}°F
+  </p>
+
+  <div class="space-y-1 text-slate-300">
+    <p>Feels like: ${Math.round(data.main.feels_like)}°F</p>
+    <p>Humidity: ${data.main.humidity}%</p>
+    <p>Wind: ${data.wind.speed} mph</p>
+    <p class="capitalize">${data.weather[0].description}</p>
+  </div>
+</div>
+`
+      );
+    } catch (error) {
+      noResults.style.display = "block";
     }
   }
+
   cityInput.addEventListener("input", doSearch);
 }
+
 searchCity();
